@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Sizani</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sizani Storefront</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="styles.css">
         <!-- Include Chart.js via CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -9,32 +14,105 @@
     </head>
     <body>
         <header class="header">
-            <section>
-                <h1 id="headerBusinessName" class="texts">Loading...</h1>
-                <h2 id="headerBusinessCategory" class="texts"></h2>
-            </section>
-            <img onclick="profile()" src="MdiLightAccount.svg" alt="profile" class="profile" width="50" height="50">
+            <div class="header-brand">
+                <h1 id="headerBusinessName" class="business-title">Loading Storefront...</h1>
+                <span id="headerBusinessCategory" class="business-category"></span>
+            </div>
+            <button class="profile-btn" onclick="profile()" aria-label="Open Profile">
+                <img src="MdiLightAccount.svg" alt="Profile" class="profile-avatar" width="40" height="40">
+            </button>
         </header>
-        <main class="container">
-            <section class="chart-card">
-                <h2 class="texts">Sales Over Time</h2>
+
+        <main class="dashboard-grid">
+            <!-- Credit Score Overview Card -->
+            <section class="card score-card">
+                <div class="card-header">
+                    <h2>Credit Score & Health</h2>
+                    <span id="scoreComputedAt" class="timestamp-badge">Computed: -</span>
+                </div>
+                <div class="score-container">
+                    <div class="score-circle">
+                        <span id="scoreValue" class="score-value">-</span>
+                        <span class="score-label">Score</span>
+                    </div>
+                    <div class="score-breakdown">
+                        <div class="breakdown-row">
+                            <span class="breakdown-label">Consistency</span>
+                            <div class="breakdown-bar"><div id="barConsistency" class="breakdown-fill"></div></div>
+                            <span id="pctConsistency" class="breakdown-pct">0%</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <span class="breakdown-label">Frequency</span>
+                            <div class="breakdown-bar"><div id="barFrequency" class="breakdown-fill"></div></div>
+                            <span id="pctFrequency" class="breakdown-pct">0%</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <span class="breakdown-label">Volume Trend</span>
+                            <div class="breakdown-bar"><div id="barVolume" class="breakdown-fill"></div></div>
+                            <span id="pctVolume" class="breakdown-pct">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ledger Summary Stats -->
+            <section class="card summary-card">
+                <div class="card-header">
+                    <h2>Ledger Overview</h2>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-box">
+                        <span id="totalEntries" class="summary-val">-</span>
+                        <span class="summary-lbl">Total Entries</span>
+                    </div>
+                    <div class="summary-box">
+                        <span id="totalValue" class="summary-val">-</span>
+                        <span class="summary-lbl">Total Ledger Value</span>
+                    </div>
+                    <div class="summary-box">
+                        <span id="dateRange" class="summary-val small">-</span>
+                        <span class="summary-lbl">Active Date Range</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chart 1: Sales Over Time -->
+            <section class="card chart-card">
+                <div class="card-header">
+                    <h2>Sales Over Time</h2>
+                </div>
                 <div class="chart-wrapper">
                     <canvas id="salesOverTimeChart"></canvas>
                 </div>
             </section>
-            <section class="chart-card">
-                <h2 class="texts">Sales by Item</h2>
+
+            <!-- Chart 2: Units Sold by Item -->
+            <section class="card chart-card">
+                <div class="card-header">
+                    <h2>Units Sold by Item</h2>
+                </div>
                 <div class="chart-wrapper">
                     <canvas id="salesByItemChart"></canvas>
                 </div>
             </section>
+
+            <!-- Recent Ledger Entries Table -->
+            <section class="card entries-card">
+                <div class="card-header">
+                    <h2>Recent Ledger Entries</h2>
+                </div>
+                <ul id="entriesList" class="entries-list">
+                    <li class="entry-row">Loading entries...</li>
+                </ul>
+            </section>
         </main>
 
+        <!-- Profile Modal with Trader Account Mock Data -->
         <div id="profileOverlay" class="overlay hidden">
             <div id="profileModal" class="modal">
                 <button class="modal-close" onclick="closeProfile()">&times;</button>
                 <div id="profileContent" class="profile-content">
-                    <p class="profile-status">Loading profile...</p>
+                    <p class="profile-status">Loading profile details...</p>
                 </div>
             </div>
         </div>
