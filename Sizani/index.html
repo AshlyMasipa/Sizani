@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sizani</title>
+        <link rel="stylesheet" href="styles.css">
+        <!-- Include Chart.js via CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="scripts.js"></script>
+    </head>
+    <body>
+        <header class="header">
+            <section>
+                <h1 id="headerBusinessName" class="texts">Loading...</h1>
+                <h2 id="headerBusinessCategory" class="texts"></h2>
+            </section>
+            <img onclick="profile()" src="MdiLightAccount.svg" alt="profile" class="profile" width="50" height="50">
+        </header>
+        <main class="container">
+            <section class="chart-card">
+                <h2 class="texts">Sales Over Time</h2>
+                <div class="chart-wrapper">
+                    <canvas id="salesOverTimeChart"></canvas>
+                </div>
+            </section>
+            <section class="chart-card">
+                <h2 class="texts">Sales by Item</h2>
+                <div class="chart-wrapper">
+                    <canvas id="salesByItemChart"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <div id="profileOverlay" class="overlay hidden">
+            <div id="profileModal" class="modal">
+                <button class="modal-close" onclick="closeProfile()">&times;</button>
+                <div id="profileContent" class="profile-content">
+                    <p class="profile-status">Loading profile...</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

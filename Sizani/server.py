@@ -5,6 +5,7 @@ import requests
 from typing import Optional, List, Any
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from google import genai
 from google.genai import types
@@ -14,6 +15,17 @@ from scoring import compute_credit_score, LedgerInput, CreditScoreResult
 load_dotenv()
 
 app = FastAPI(title="Sizani AI Service")
+
+# Allow the front-end (served from a different origin, e.g. file:// or a
+# local dev server) to call this API through the ngrok tunnel.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],       # tighten this to your actual front-end origin(s) later
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
 CACHE_FILE = "demo_cache.json"
